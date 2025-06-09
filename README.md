@@ -15,7 +15,7 @@ For the DNA analysis, we followed the pipeline from:
 
 ### 2. scRR-seq-RNA
 
-For the RNA component, we used the `ramdaq` pipeline developed by RIKEN:
+For the RNA component, we used the ramdaq pipeline developed by RIKEN:
 
 - **Hayashi et al., Nature Communications, 2018**
 - GitHub: https://github.com/rikenbit/ramdaq
