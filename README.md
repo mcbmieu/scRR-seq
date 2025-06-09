@@ -20,6 +20,12 @@ For the RNA component, we used the ramdaq pipeline developed by RIKEN:
 - **Hayashi et al., Nature Communications, 2018**
 - GitHub: https://github.com/rikenbit/ramdaq
 
+### 3. Haplotype-resolved/Allele-specific analysis
+
+For haplotype-resolved/allele-specific analysis, we used the EMASE pipeline from:
+- **Raghupathy et al., Bioinformatics, 2018**
+- See: https://emase.readthedocs.io/en/latest/index.html
+
 ---
 
 ## Figure Scripts
