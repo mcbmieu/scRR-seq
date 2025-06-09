@@ -1,0 +1,21 @@
+# =======================================================
+# Fig. 4f (part 2): Allelic gene expression ratio vs. RT
+# =======================================================
+
+# Run in bash
+
+# --- Intersect RT and gene expression using bedtools ----
+
+
+# Input files
+# Gene expression data (see: Codes_ExtendedDataFig7de.R)
+file1="/Volumes/scRR-seq_GEO/codes/ExtendedDataFig7/data/CBMS1_mono_bias_bi_expression_rmchr8chrX.txt"
+
+# RT difference data (see: Codes_Fig4f_part1.R)
+file2="/Volumes/scRR-seq_GEO/codes/Fig4/data/RT_differences_CBA_MSM_midSdata_noheader.txt"
+
+# Output path
+output="/Volumes/scRR-seq_GEO/codes/Fig4/data/Intersect_allelic_RT_GE_CBMS1.txt"
+
+# Run bedtools intersect
+bedtools intersect -a "$file1" -b "$file2" -wa -wb > "$output"
