@@ -1,0 +1,70 @@
+# Run in bash
+## Get average RT data from midS
+# average scRT based on Takahashi et al., 2019, should use only mid-s phase cells (40-70%)
+# Miura et al., 2020
+
+###########1. Prepare input data sets for analysis##########
+#Use genome-wide data
+#Mode V : NaN , 1, 0 
+#Mode H : 0, 1, -1
+
+val_score_v2_Nd=function(x,filter=4,mode="H"){
+  if(mode=="V"){
+    score=0
+    size=length(x)
+    NoRep=sum(x==0,na.rm=T)
+    Rep=sum(x==1,na.rm=T)
+    NoData=sum(is.na(x))
+    if (NoData  > filter){ #今回は、4以前は2
+      score=-1
+    }else{
+      #scale to 1 (max is 0.5)
+      score=Rep/(Rep+NoRep)
+    }
+  }else{
+    score=0
+    size=length(x)
+    NoRep=sum(x==-1)
+    Rep=sum(x==1)
+    NoData=sum(x==0)
+    if (NoData  > filter){ #今回は、4以前は2
+      score=-1
+    }else{
+      #scale to 1 (max is 0.5)
+      score=Rep/(Rep+NoRep)
+    }
+  }
+  return(score)
+}
+
+
+
+# Make function for midS profiles
+mids_ave <- function(df, info, filename, dir1){
+  # Get midS cell list
+  info <- info
+  repliscRepli_midS <- info[info$repliscore > 0.4 & info$repliscore < 0.7,]
+  repliscRepli_midS_list <- repliscRepli_midS$Sample[order(repliscRepli_midS$repliscore)]
+  
+  midS_scRepli = data.frame(df[1:3], df[, repliscRepli_midS_list])
+  midS_data = midS_scRepli
+  #colnames(midS_data)
+  #dim(midS_data)
+  
+  val_score_v2_Nd_data <- NULL
+  val_score_v2_Nd_data=apply(midS_data[,4:dim(midS_data)[2]],1,val_score_v2_Nd,filter=2)
+  head(val_score_v2_Nd_data)
+  length(val_score_v2_Nd_data)
+  val_score_v2_Nd_data[val_score_v2_Nd_data==-1]=NA
+  midS_data$val_score_v2_Nd_data=val_score_v2_Nd_data
+  
+  ave = mean(repliscRepli_midS$repliscore)
+  ave_scRT=val_score_v2_Nd_data - ave
+  midS_data$Ave_scRT = ave_scRT
+  
+  final1 <- data.frame(midS_data[1:3], midS_data$Ave_scRT)
+  final2 <- data.frame(midS_data[1:3], midS_data$val_score_v2_Nd_data)
+  
+  write.table(final1[complete.cases(final1),], paste0(dir1,"/", filename, "_midS_Avg_scRepliseq_RT.bedGraph"), col.names = F, row.names = F, quote = F, sep = "\t")
+  write.table(final2[complete.cases(final2),], paste0(dir1,"/", filename, "_midS_Avg_scRepliseq_val_scores.bedGraph"), col.names = F, row.names = F, quote = F, sep = "\t")
+}
