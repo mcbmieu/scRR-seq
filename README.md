@@ -10,6 +10,7 @@ This repository contains the analysis codes for the **scRR-seq** study, includin
 
 For the DNA analysis, we followed the pipeline from:
 
+- **Takahashi et al., Nature Genetics, 2019**
 - **Miura et al., Nature Protocols, 2020**  
 - GitHub: https://github.com/kuzobuta/scRepliseq-Pipeline/blob/master/README.md
 
