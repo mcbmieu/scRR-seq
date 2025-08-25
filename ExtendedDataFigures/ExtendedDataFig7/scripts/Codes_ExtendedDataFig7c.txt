@@ -1,2 +1,0 @@
-# See /Volumes/scRR-seq_GEO/codes/Fig4/scripts/
-└── Codes_Fig4bc.R
