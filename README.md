@@ -1,4 +1,4 @@
-# scRR-seq Code Repository
+# scRR-seq Code Repository [2025/08/25]
 
 This repository contains the analysis codes for the **scRR-seq** study, including both **scRR-seq-DNA** and **scRR-seq-RNA** pipelines, as well as figure-specific plotting scripts.
 
